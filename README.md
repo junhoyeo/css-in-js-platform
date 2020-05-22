@@ -12,7 +12,7 @@ yarn add styled-platform
 You can use this module in 3 different ways.
 
 ```tsx
-import platform, { css } from 'styled-platform';
+import platform from 'styled-platform';
 
 const exampleText = styled.Text`
   ${platform({
@@ -27,7 +27,7 @@ const exampleText = styled.Text`
 ```
 
 ```tsx
-import platform, { css } from 'styled-platform';
+import platform from 'styled-platform';
 
 const exampleText = styled.Text`
   font-size: 14px;
@@ -39,7 +39,7 @@ const exampleText = styled.Text`
 ```
 
 ```tsx
-import platform, { css } from 'styled-platform';
+import platform from 'styled-platform';
 
 const exampleText = styled.Text`
   font-size: 14px;
