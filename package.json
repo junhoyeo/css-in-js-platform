@@ -1,11 +1,11 @@
 {
-  "name": "styled-platform",
+  "name": "css-in-js-platform",
   "version": "0.0.1",
   "description": "Platform.select for native CSS-IN-JS solutions(styled-components, emotion, etc.)",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "typings": "lib/index.d.ts",
-  "repository": "https://github.com/junhoyeo/styled-platform",
+  "repository": "https://github.com/junhoyeo/css-in-js-platform",
   "author": {
     "name": "JunhoYeo",
     "email": "hanaro0704@naver.com"

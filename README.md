@@ -1,18 +1,18 @@
-# 🛫 styled-platform
+# 🛫 css-in-js-platform
 
 ## 📦 Installation
 
 ```bash
-npm install styled-platform
+npm install css-in-js-platform
 # Or with yarn
-yarn add styled-platform
+yarn add css-in-js-platform
 ```
 
 ## 🚀 Usage
 You can use this module in 3 different ways.
 
 ```tsx
-import platform from 'styled-platform';
+import platform from 'css-in-js-platform';
 
 const exampleText = styled.Text`
   ${platform({
@@ -27,7 +27,7 @@ const exampleText = styled.Text`
 ```
 
 ```tsx
-import platform from 'styled-platform';
+import platform from 'css-in-js-platform';
 
 const exampleText = styled.Text`
   font-size: 14px;
@@ -39,7 +39,7 @@ const exampleText = styled.Text`
 ```
 
 ```tsx
-import platform from 'styled-platform';
+import platform from 'css-in-js-platform';
 
 const exampleText = styled.Text`
   font-size: 14px;
