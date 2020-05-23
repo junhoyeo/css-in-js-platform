@@ -8,20 +8,28 @@ type Interpolation =
   | Array<Interpolation>;
 type RuleSet = Array<Interpolation>;
 
-export interface PlatformSelectObject {
-  ios?: RuleSet;
-  android?: RuleSet;
-  macos?: RuleSet;
-  windows?: RuleSet;
-  web?: RuleSet;
-}
+type PartialRecord<K extends string, T> = {
+  [P in K]?: T;
+};
 
-export type PlatformKey = 'android' | 'ios';
+const tuple = <T extends string[]>(...args: T) => args;
 
 const currentPlatform = Platform.OS;
-const platformKeys: PlatformKey[] = ['android', 'ios'];
+const platformKeys = tuple('android', 'ios', 'macos', 'windows', 'web');
 
-function _platform_main(platformSelectObjectOrPlatformKeyString: PlatformSelectObject | PlatformKey, styles: RuleSet = []): RuleSet {
+export type TPlatformKey = typeof platformKeys[number];
+export type TPlatformSelectObject = PartialRecord<string, RuleSet>;
+type TPlatformSelectObjectOrPlatformKey = TPlatformSelectObject | TPlatformKey;
+
+export type TPlatformMainHandler =
+  (platformSelectObjectOrPlatformKeyString: TPlatformSelectObjectOrPlatformKey, styles?: RuleSet) => RuleSet;
+export type TPlatformEachHandler = (styles?: RuleSet) => RuleSet | void;
+
+export interface IPlatform extends Record<TPlatformKey, TPlatformEachHandler> {
+  (platformSelectObjectOrPlatformKeyString: TPlatformSelectObjectOrPlatformKey, styles?: RuleSet): RuleSet;
+}
+
+const platformMainHandler: TPlatformMainHandler = (platformSelectObjectOrPlatformKeyString, styles = []) => {
   if (typeof platformSelectObjectOrPlatformKeyString === 'string') {
     return styles;
   }
@@ -34,17 +42,26 @@ function _platform_main(platformSelectObjectOrPlatformKeyString: PlatformSelectO
   });
 
   return [];
+};
+
+class StyledPlatform {
+  platform: any;
+
+  constructor() {
+    this.initializeMain();
+    this.registerPlatformMethods();
+  }
+
+  private initializeMain() {
+    this.platform = platformMainHandler;
+  }
+
+  private registerPlatformMethods() {
+    platformKeys.forEach((platformKey: TPlatformKey) =>
+      this.platform[platformKey] = (styles: RuleSet) =>
+        currentPlatform === platformKey ? styles : []);
+  }
 }
 
-interface platform {
-  (platformSelectObjectOrPlatformKeyString: PlatformSelectObject | PlatformKey, styles?: RuleSet): RuleSet;
-  android: (styles?: RuleSet) => RuleSet | void;
-}
-
-const platformGenerator = (() => {
-  const platformSolution: any = _platform_main;
-  platformSolution.android = (styles: RuleSet) => styles;
-  return _platform_main;
-})();
-
-export const platform = platformGenerator as platform;
+const styledPlatform = new StyledPlatform();
+export const platform = styledPlatform.platform as IPlatform;

@@ -1,5 +1,8 @@
 export {
   platform as default,
-  PlatformKey,
-  PlatformSelectObject,
+  TPlatformKey,
+  TPlatformSelectObject,
+  TPlatformMainHandler,
+  TPlatformEachHandler,
+  IPlatform,
 } from './platform';
