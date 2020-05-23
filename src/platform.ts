@@ -23,7 +23,7 @@ type TPlatformSelectObjectOrPlatformKey = TPlatformSelectObject | TPlatformKey;
 
 export type TPlatformMainHandler =
   (platformSelectObjectOrPlatformKeyString: TPlatformSelectObjectOrPlatformKey, styles?: RuleSet) => RuleSet;
-export type TPlatformEachHandler = (styles?: RuleSet) => RuleSet | void;
+export type TPlatformEachHandler = (styles?: RuleSet) => RuleSet;
 
 export interface IPlatform extends Record<TPlatformKey, TPlatformEachHandler> {
   (platformSelectObjectOrPlatformKeyString: TPlatformSelectObjectOrPlatformKey, styles?: RuleSet): RuleSet;
